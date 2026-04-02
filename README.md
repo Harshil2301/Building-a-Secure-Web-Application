@@ -1,48 +1,137 @@
-# Secure Web Application
+# 🔐 Secure Web Application (OWASP-Aligned)
 
-A portfolio-ready, fully secure Flask web application designed to demonstrate the mitigation of OWASP Top 10 vulnerabilities.
+A portfolio-ready Flask application demonstrating the **identification, exploitation, and mitigation of common web security vulnerabilities**, aligned with OWASP Top 10 principles.
 
-The system was initially designed with common vulnerabilities, which were then systematically mitigated using secure coding practices and verified through controlled attack simulations.
+---
 
-## Features
+## 📌 Overview
 
-- **SQL Injection Defense**: Uses `Flask-SQLAlchemy` ORM to completely neutralize SQL injection payloads by ensuring all database queries are strictly parameterized.
-- **Robust Authentication**: Employs `Flask-JWT-Extended` to issue and verify secure session tokens, blocking unauthorized or broken access attempts.
-- **Cryptographic Hashing**: User credentials are not stored in plain text. Instead, strong `scrypt` hashing is applied via `werkzeug.security` before storing passwords in the database.
-- **Modern UI Architecture**: A deeply custom "Glassmorphism" design using vanilla CSS, demonstrating premium frontend capability without reliance on heavy frameworks.
+This project was initially designed with intentionally vulnerable components to simulate real-world security flaws. These vulnerabilities were then systematically mitigated using secure coding practices and validated through controlled attack simulations.
 
-## Setup & Installation
+---
 
-**1. Clone the repository and navigate inside:**
+## 🚨 Vulnerability Demonstration
+
+### 🔴 Before (Vulnerable System)
+
+* Plaintext password storage
+* No authentication enforcement on protected routes
+* Susceptible to SQL Injection attacks
+
+### 🔴 Attack Simulation
+
+* SQL Injection payload: `admin' OR '1'='1`
+* Unauthorized direct access to `/dashboard` endpoint
+
+---
+
+## 🛡️ Security Implementation
+
+* **SQL Injection Protection**
+  Leveraged Flask-SQLAlchemy ORM to enforce parameterized queries, eliminating injection risks.
+
+* **Secure Authentication (JWT)**
+  Implemented token-based authentication using Flask-JWT-Extended to prevent unauthorized access.
+
+* **Password Security (scrypt hashing)**
+  Used `werkzeug.security` to hash passwords before storage, ensuring irreversible credential protection.
+
+* **Access Control Enforcement**
+  Restricted protected endpoints using authentication checks and token validation.
+
+---
+
+## 🧪 Security Testing (OWASP-Inspired)
+
+| Test Case             | Description                                  | Result       |
+| --------------------- | -------------------------------------------- | ------------ |
+| SQL Injection         | Login bypass attempt using injection payload | ❌ Blocked    |
+| Broken Authentication | Direct access to protected route             | ❌ Blocked    |
+| Password Exposure     | Database inspection for plaintext passwords  | ❌ Eliminated |
+
+---
+
+## 🎨 UI Features
+
+* Modern Glassmorphism design
+* Clean and responsive authentication interface
+* Lightweight frontend (pure HTML/CSS, no heavy frameworks)
+
+---
+
+## 🛠️ Tech Stack
+
+* Python (Flask)
+* Flask-SQLAlchemy
+* Flask-JWT-Extended
+* SQLite
+* HTML, CSS
+
+---
+
+## 🚀 Setup & Installation
+
 ```bash
 git clone https://github.com/your-username/your-repo-name.git
-cd "your-repo-name"
-```
+cd your-repo-name
 
-**2. Create and activate a Virtual Environment:**
-```bash
-# Windows
+# Create virtual environment
 python -m venv .venv
+
+# Activate
+# Windows:
 .venv\Scripts\activate
-
-# macOS/Linux
-python3 -m venv .venv
+# macOS/Linux:
 source .venv/bin/activate
-```
 
-**3. Install Dependencies:**
-```bash
+# Install dependencies
 pip install -r requirements.txt
-```
 
-**4. Run the Application:**
-```bash
+# Run application
 python app.py
 ```
-> The application will automatically create the secure `instance/secure_app.db` local SQLite database and spin up on `http://127.0.0.1:5000`.
 
-## Testing the Security
+The application will start at:
+👉 http://127.0.0.1:5000
 
-This project is built to defend against literal attacks. You can test these protections yourself:
-- **SQLi Test:** On the login page, try using `admin' OR '1'='1` in the username to bypass authentication. It will securely reject it.
-- **Broken Access Test:** Try to visit `http://127.0.0.1:5000/dashboard` directly without logging in. The server will reject the request due to missing JWT cookies.
+---
+
+## 🔍 Security Testing Guide
+
+### 🔴 SQL Injection Test
+
+Try the following payload in the login form:
+
+```
+admin' OR '1'='1
+```
+
+👉 Result: Authentication is securely rejected.
+
+---
+
+### 🔴 Unauthorized Access Test
+
+Visit:
+
+```
+http://127.0.0.1:5000/dashboard
+```
+
+without logging in.
+
+👉 Result: Access denied due to missing/invalid JWT token.
+
+---
+
+## 📊 Key Takeaways
+
+* Demonstrates real-world vulnerability exploitation and mitigation
+* Highlights importance of secure authentication and input handling
+* Validates defenses through practical attack simulation
+
+---
+
+## 👨‍💻 Author
+
+Harshil Parmar
