@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Secure Web App{% endblock %}
+
+{% block content %}
+    <h2>Dashboard</h2>
+    
+    <div style="text-align: center; margin: 20px 0;">
+        <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--primary); color: #0f172a; font-size: 32px; font-weight: bold; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+            {{ user.username[0] | upper }}
+        </div>
+        <h3>Hello, {{ user.username }}!</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-top: 10px;">
+            You have successfully logged in via a secure JWT session.
+            {% if user.github_id %}
+            <br><span style="color: var(--success); font-size: 0.8rem; display: inline-block; margin-top: 5px;">Linked to GitHub OAuth</span>
+            {% endif %}
+        </p>
+    </div>
+
+    <form method="get" action="{{ url_for('logout') }}" style="text-align: center;">
+        <button type="submit" style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); width: 100%;">Log Out</button>
+    </form>
+{% endblock %}
